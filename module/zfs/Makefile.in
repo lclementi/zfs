@@ -38,7 +38,6 @@ $(MODULE)-objs += @top_srcdir@/module/zfs/metaslab.o
 $(MODULE)-objs += @top_srcdir@/module/zfs/refcount.o
 $(MODULE)-objs += @top_srcdir@/module/zfs/rrwlock.o
 $(MODULE)-objs += @top_srcdir@/module/zfs/sa.o
-$(MODULE)-objs += @top_srcdir@/module/zfs/sha256.o
 $(MODULE)-objs += @top_srcdir@/module/zfs/spa.o
 $(MODULE)-objs += @top_srcdir@/module/zfs/spa_boot.o
 $(MODULE)-objs += @top_srcdir@/module/zfs/spa_config.o

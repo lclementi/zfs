@@ -56,7 +56,7 @@ libzpool_la_SOURCES = \
 	$(top_srcdir)/module/zfs/refcount.c \
 	$(top_srcdir)/module/zfs/rrwlock.c \
 	$(top_srcdir)/module/zfs/sa.c \
-	$(top_srcdir)/module/zfs/sha256.c \
+	$(top_srcdir)/module/zcrypto/sha256.c \
 	$(top_srcdir)/module/zfs/spa.c \
 	$(top_srcdir)/module/zfs/spa_boot.c \
 	$(top_srcdir)/module/zfs/spa_config.c \
