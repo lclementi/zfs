@@ -25,22 +25,29 @@ struct shash_desc desc;
 void
 crypto_zio_checksum_SHA256(const void *buf, uint64_t size, zio_cksum_t *zcp)
 {
-	uint32_t hash[8];
+	uint64_t hash[4];
 
 	if (desc.tfm){
 		crypto_shash_init(&desc);
 		crypto_shash_update(&desc, buf, size);
 		crypto_shash_final(&desc, (u8 *) hash);
 
-	ZIO_SET_CHECKSUM(zcp,
-	    (uint64_t)hash[0] << 32 | hash[1],
-	    (uint64_t)hash[2] << 32 | hash[3],
-	    (uint64_t)hash[4] << 32 | hash[5],
-	    (uint64_t)hash[6] << 32 | hash[7]);
 
-	//printk(KERN_ERR "Crypto hash %x:%x:%x:%x:%x:%x:%x:%x ------- %x:%x:%x:%x:%x:%x:%x:%x\n", 
-	//			hash[0], hash[1], hash[2], hash[3], hash[4], hash[5], hash[6], hash[7], 
-	//			H[0], H[1], H[2], H[3], H[4], H[5], H[6], H[7]);
+		ZIO_SET_CHECKSUM(zcp,
+			cpu_to_be64(hash[0]),
+			cpu_to_be64(hash[1]),
+			cpu_to_be64(hash[2]),
+			cpu_to_be64(hash[3]));
+
+		/*
+		printk(KERN_ERR "Crypto hash %llx:%llx:%llx:%llx\n", zcp->zc_word[0], 
+			zcp->zc_word[1], zcp->zc_word[2], zcp->zc_word[3]);
+
+		zio_checksum_SHA256(buf, size, zcp);
+
+		printk(KERN_ERR "Zio    hash %llx:%llx:%llx:%llx\n", zcp->zc_word[0], 
+			zcp->zc_word[1], zcp->zc_word[2], zcp->zc_word[3]);
+			*/
 
 	} else {
 		zio_checksum_SHA256(buf, size, zcp);
