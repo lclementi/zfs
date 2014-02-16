@@ -67,6 +67,7 @@ static int __init init_zcrypto(void){
 		desc.tfm = NULL;
 		return -1;
 	}
+	printk(KERN_ERR "Loaded module %s\n", crypto_shash_alg(tfm)->base.cra_driver_name );
 	desc.tfm = tfm;
 	desc.flags = CRYPTO_TFM_REQ_MAY_SLEEP; //TODO check this
 	return 0;
